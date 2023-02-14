@@ -17,3 +17,53 @@
 # Your task has been made easy, as the encryption key consists of three lower case characters.
 # Using p059_cipher.txt, a file containing the encrypted ASCII codes, and the knowledge that the plain text must contain
 # common English words, decrypt the message and find the sum of the ASCII values in the original text.
+
+
+import time
+import string
+
+
+def decrypt(key, message):
+    decrypted = []
+    for i, char in enumerate(message):
+        decrypted.append(chr(char ^ ord(key[i % len(key)])))
+    return ''.join(decrypted)
+
+
+def evaluate(message):
+    common_words = ['the', 'and', 'that', 'with',
+                    'this', 'for', 'you', 'have', 'be', 'not', 'are']
+    words = message.split()
+    score = 0
+    for word in words:
+        if word.lower() in common_words:
+            score += 1
+    return score
+
+
+def main():
+    start_time = time.time()
+    encrypted = [int(x) for x in open(
+        'D:\zerot69\@tuaans.bawps\WORKS\Programming\Python\ProjectEuler\Problem 051-100\problem_059_ciphertext.txt').read().split(',')]
+    best_score = 0
+    best_decryption = None
+    best_key = None
+    for a in string.ascii_lowercase:
+        for b in string.ascii_lowercase:
+            for c in string.ascii_lowercase:
+                key = a + b + c
+                decryption = decrypt(key, encrypted)
+                score = evaluate(decryption)
+                if score > best_score:
+                    best_score = score
+                    best_decryption = decryption
+                    best_key = key
+    print("Key:", best_key)
+    print("Message:", best_decryption)
+    print("Problem 59:",
+          sum([ord(c) for c in best_decryption]))
+    print("Total time: {}".format(time.time() - start_time))
+
+
+if __name__ == '__main__':
+    main()
