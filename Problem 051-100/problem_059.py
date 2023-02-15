@@ -44,7 +44,7 @@ def evaluate(message):
 def main():
     start_time = time.time()
     encrypted = [int(x) for x in open(
-        'D:\zerot69\@tuaans.bawps\WORKS\Programming\Python\ProjectEuler\Problem 051-100\problem_059_ciphertext.txt').read().split(',')]
+        'problem_059_ciphertext.txt').read().split(',')]
     best_score = 0
     best_decryption = None
     best_key = None
